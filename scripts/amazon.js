@@ -71,13 +71,13 @@ products.forEach((product) => {
              
             let dropdown = document.querySelector(`.js-quantity-selector-${productId}`);
             quantityAmount = dropdown.value;
-            console.log(quantityAmount);
+            
 
             let matchingItem;
 
             cart.forEach((item) => {
                 if(productId === item.productId){
-                    matchingItem = item
+                    matchingItem = item;
                 }
             });
 
@@ -99,8 +99,25 @@ products.forEach((product) => {
             document.querySelector('.js-cart-quantity')
             .innerHTML = cartQuantity;
 
-            console.log(cartQuantity);
-            console.log(cart)
+            localStorage.setItem("cart", JSON.stringify(cart));
         });
     })
 });
+
+let clearCart = document.querySelector(".js-clear-cart-button");
+  clearCart.addEventListener("click", () => {
+    updateCart();
+  });
+
+function updateCart() {
+    cartQuantity = 0;
+    cart = []
+    localStorage.removeItem("cart");
+
+    document.querySelector(".js-cart-quantity").innerHTML =
+      cartQuantity;
+}
+
+
+
+

@@ -117,7 +117,15 @@
   font-size: 15px;
   font-weight: 700;
 }
-
+.clear-cart-button-container{
+  display: flex;
+  align-items: center;
+}
+.clear-cart-button{
+  background-color: inherit;
+  border: none;
+  color: white;
+}
 .cart-link {
   color: white;
   display: flex;
