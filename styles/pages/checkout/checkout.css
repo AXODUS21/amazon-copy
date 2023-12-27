@@ -118,6 +118,12 @@
 .product-quantity .link-primary {
   margin-left: 3px;
 }
+.quantity-label{
+  font-size: 15px;
+  width: 30px;
+  border: none;
+  background-color: white;
+}
 
 @media (max-width: 1000px) {
   .delivery-options {
@@ -205,7 +211,7 @@
   padding-top: 12px;
   padding-bottom: 12px;
   border-radius: 8px;
-
   margin-top: 11px;
   margin-bottom: 15px;
 }
+

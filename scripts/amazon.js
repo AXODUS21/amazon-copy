@@ -1,4 +1,5 @@
 let productsHTML = '';
+loadCart();
 //.toFixed() indicates how much decimals number you want after solving a certain shit
 products.forEach((product) => {
     productsHTML += `
@@ -48,7 +49,10 @@ products.forEach((product) => {
 
           <button class="add-to-cart-button button-primary
           js-add-to-cart"
-          data-product-id="${product.id}">
+          data-product-id="${product.id}"
+          data-product-image="${product.image}"
+          data-product-price="${product.priceCents}"
+          data-product-name="${product.name}">
             Add to Cart
           </button>
         </div>
@@ -61,6 +65,9 @@ products.forEach((product) => {
     .forEach((button) => {
         button.addEventListener('click', () => {
             const productId = button.dataset.productId;
+            const image = button.dataset.productImage;
+            const priceCents = button.dataset.productPrice;
+            const name = button.dataset.productName;
             document.querySelector(`.js-added-to-cart-${productId}`)
             .classList.add('confirmed');
 
@@ -87,19 +94,24 @@ products.forEach((product) => {
                 cart.push({
                   productId: productId,
                   quantity: Number(quantityAmount),
+                  productImg: image,
+                  productPrice: priceCents,
+                  productName: name,
                 });
             }
 
-            let cartQuantity = 0;
+            cartQuantity = 0;
 
             cart.forEach((item) => {
                 cartQuantity += item.quantity;
             });
 
-            document.querySelector('.js-cart-quantity')
-            .innerHTML = cartQuantity;
+            document.querySelector(".js-cart-quantity").innerHTML =
+              cartQuantity;
 
             localStorage.setItem("cart", JSON.stringify(cart));
+            localStorage.setItem("cartquantity", JSON.stringify(cartQuantity));
+
         });
     })
 });
@@ -109,11 +121,15 @@ let clearCart = document.querySelector(".js-clear-cart-button");
     updateCart();
   });
 
+function loadCart(){
+  document.querySelector(".js-cart-quantity").innerHTML =  JSON.parse(localStorage.getItem("cartquantity")) || 0;
+}
+
 function updateCart() {
     cartQuantity = 0;
-    cart = []
+    cart = [] 
     localStorage.removeItem("cart");
-
+    localStorage.removeItem("cartquantity")
     document.querySelector(".js-cart-quantity").innerHTML =
       cartQuantity;
 }
